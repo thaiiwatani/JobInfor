@@ -45,19 +45,20 @@ public class GroupJobUpdate extends JFrame implements ActionListener {
    private Font fontText =  new Font("ÇlÇr ÇoÉSÉVÉbÉN å©èoÇµ",Font.BOLD , 18);
    private Font fontTextBox =  new Font("ÇlÇr ÇoÉSÉVÉbÉN å©èoÇµ",Font.BOLD , 18);
    private AdminMainMenu adminMainMenu =null;
+   private GroupJob groupJob;
 
    private ControlGroupJob ctrGroup = new ControlGroupJob();
    
 
-	public GroupJobUpdate() throws SQLException
+	public GroupJobUpdate(GroupJob groupJob) throws SQLException
 	{
-		
+		this.groupJob = groupJob;
 		guiStart();
 	}
 
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
-		GroupJobUpdate s = new GroupJobUpdate();
+		//GroupJobUpdate s = new GroupJobUpdate();
 
 	}
 	
@@ -91,7 +92,7 @@ public class GroupJobUpdate extends JFrame implements ActionListener {
 	private void PAGE_END()
 	{
 		pPAGE_END = new JPanel(new FlowLayout());
-		bt1 = new JButton("Create");
+		bt1 = new JButton("Update");
 		bt1.setFont(fontButton);
 		bt2 = new JButton("Cancel");
 		bt2.setFont(fontButton);
@@ -117,16 +118,19 @@ public class GroupJobUpdate extends JFrame implements ActionListener {
 		//txtGroupJobName.setSize(500, 20);
 		txtGroupJobMemo = new JTextField(11);
 		txtGroupJobMemo.setFont(fontTextBox);
+		//set text in to textbox
+		txtGroupJobName.setText(groupJob.getGroupName());
+		txtGroupJobMemo.setText(groupJob.getMemo());
 		pLINE_START.add(lGroupJobName);
 		pLINE_START.add(txtGroupJobName);
 		pLINE_START.add(lGroupJobMemo);
 		pLINE_START.add(txtGroupJobMemo);
 
 	}
-	private boolean addGroupJob(GroupJob groupJob) throws SQLException
+	private boolean UpdateGroupJob(GroupJob groupJob) throws SQLException
 	{
 		boolean check = false;
-		check = ctrGroup.add(groupJob);
+		check = ctrGroup.update(groupJob);
 		return check;
 	}
 
@@ -152,7 +156,7 @@ public class GroupJobUpdate extends JFrame implements ActionListener {
 				GroupJob groupJob = new GroupJob(name,memo);
 				boolean checked= false;
 				try {
-					checked = addGroupJob(groupJob);
+					checked = UpdateGroupJob(groupJob);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

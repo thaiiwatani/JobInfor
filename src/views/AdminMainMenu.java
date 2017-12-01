@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,6 +27,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import Control.ControlGroupJob;
 import entity.GroupJob;
@@ -53,6 +58,7 @@ public class AdminMainMenu extends JFrame implements ActionListener {
    private JButton bUpdate;
    private JButton bSearch3;
    private JButton bAdd;
+   private GroupJob groupJob;
    public GroupJobAdd groupJobAdd;
    
    //Test Frame moi
@@ -111,6 +117,56 @@ public class AdminMainMenu extends JFrame implements ActionListener {
 		jLGroup = new JList(dModel);
 		jLGroup.setFixedCellHeight(40);
 		jLGroup.setSelectedIndex(-1);
+		jLGroup.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("1mouseReleased la gi");
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("2mousePressed la gi");
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("3mouseExited la gi");
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("4mouseEntered la gi");
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("5mouseClicked la gi");
+				
+			}
+		});
+		jLGroup.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				groupJob = (GroupJob)jLGroup.getSelectedValue();
+				if(groupJob!=null)
+				{
+				System.out.println("6  "+groupJob.getGroupName()+groupJob.getMemo()+groupJob.getId());
+				}
+				
+			}
+		});
 
 		//jLGroup.setCellRenderer(new JPanelToJList.PanelRenderer());
          scroll1 = new JScrollPane(jLGroup);

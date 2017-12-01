@@ -62,6 +62,41 @@ public class DataGroupJob {
 			return null;
 		}
 	}
+	public GroupJob loadGroupJob(GroupJob g) throws SQLException
+	{
+		Connection con;
+		try {
+		con = new Connect().getMySQLConnection();
+		Statement statement = con.createStatement();
+		 
+	    String sql = "Select id, groupname, memo from group_jobs where id =?";
+	    ResultSet rs;
+		
+		rs = statement.executeQuery(sql);
+		//List<groupJob> lst = new ArrayList<>(groupJob);
+		List<GroupJob> lstGroupJob = new ArrayList<GroupJob>();
+		
+	      while (rs.next()) {
+	          int id = rs.getInt(1);
+	          String groupname = rs.getString(2);
+	          String memo = rs.getString("memo");
+	          GroupJob gJob = new GroupJob(id,groupname,memo);
+	          lstGroupJob.add(gJob);
+	          
+	          System.out.println("Id:" + id);
+	          System.out.println("groupname:" + groupname);
+	          System.out.println("memo:" + memo);
+	      }
+	      
+	      con.close();
+	      return g;
+	      
+		} catch (ClassNotFoundException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return null;
+		}
+	}
 	public boolean addGroupJob(GroupJob g) throws SQLException
 	{
 		boolean check =false;
