@@ -138,8 +138,11 @@ public class DataGroupJob {
         preStmt.setString(1, g.getGroupName());
         ResultSet rs;
         rs= preStmt.executeQuery();
+        if(!rs.next())
+        {
+        	check = true;
+        }
         
-        check =rs.next();
 	    
 		}catch (ClassNotFoundException | SQLException e1) {
 			// TODO Auto-generated catch block
@@ -192,15 +195,20 @@ public class DataGroupJob {
 		boolean check =false;
 		Connection con=null;
 		PreparedStatement preStmt = null;
+		
 		try {
 		con = new Connect().getMySQLConnection();
-		String sql = "update group_jobs set groupname = ?,memo=?  where id = ?)";
+		String sql = "update group_jobs set groupname =?,memo=?  where id =?";
+		
 		preStmt = con.prepareStatement(sql);
+		
 		preStmt.setString(1, gJob.getGroupName());
 		preStmt.setString(2, gJob.getMemo());
-        preStmt.setInt(3, gJob.getId());     
-        check =preStmt.execute();
-	    
+        preStmt.setInt(3, gJob.getId());  
+        
+        check =!preStmt.execute();
+        System.out.println("ABC"+check);
+	   
 		}catch (ClassNotFoundException | SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -216,6 +224,40 @@ public class DataGroupJob {
 		}
 		
 		return check;
+	}
+	public boolean checkJobInGroupJob(GroupJob groupJob)
+	{
+		//true = data of job ga nai
+		//false = data aru
+		boolean check = false;
+		Connection con=null;
+		PreparedStatement preStmt = null;
+		try {
+		con = new Connect().getMySQLConnection();
+		
+		 
+	    String sql = "Select id from jobs where groupid =?";
+	    preStmt = con.prepareStatement(sql);
+	    preStmt.setInt(1, groupJob.getId());
+	    
+	    ResultSet rs;
+		
+		rs = preStmt.executeQuery();
+		//List<groupJob> lst = new ArrayList<>(groupJob);
+		System.out.println("checkUpdate");
+		if(!rs.next())
+		{
+			check = true;
+		}
+	     preStmt.close();
+	     con.close();
+	     return check;
+	      
+		} catch (ClassNotFoundException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return check;
+		}
 	}
 
 }

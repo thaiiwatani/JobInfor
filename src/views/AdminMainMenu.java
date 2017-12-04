@@ -23,6 +23,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -55,11 +56,12 @@ public class AdminMainMenu extends JFrame implements ActionListener {
    private Font fontText =  new Font("ÇlÇr ÇoÉSÉVÉbÉN å©èoÇµ",Font.BOLD , 18);
    private JLabel lHeadTitle;
    private JButton bSearch1;
-   private JButton bUpdate;
+   private JButton bEdit;
    private JButton bSearch3;
    private JButton bAdd;
    private GroupJob groupJob;
    public GroupJobAdd groupJobAdd;
+   public GroupJobEdit groupJobEdit;
    
    //Test Frame moi
    
@@ -117,43 +119,43 @@ public class AdminMainMenu extends JFrame implements ActionListener {
 		jLGroup = new JList(dModel);
 		jLGroup.setFixedCellHeight(40);
 		jLGroup.setSelectedIndex(-1);
-		jLGroup.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("1mouseReleased la gi");
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("2mousePressed la gi");
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("3mouseExited la gi");
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("4mouseEntered la gi");
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("5mouseClicked la gi");
-				
-			}
-		});
+//		jLGroup.addMouseListener(new MouseListener() {
+//			
+//			@Override
+//			public void mouseReleased(MouseEvent e) {
+//				// TODO Auto-generated method stub
+//				System.out.println("1mouseReleased la gi");
+//				
+//			}
+//			
+//			@Override
+//			public void mousePressed(MouseEvent e) {
+//				// TODO Auto-generated method stub
+//				System.out.println("2mousePressed la gi");
+//				
+//			}
+//			
+//			@Override
+//			public void mouseExited(MouseEvent e) {
+//				// TODO Auto-generated method stub
+//				System.out.println("3mouseExited la gi");
+//				
+//			}
+//			
+//			@Override
+//			public void mouseEntered(MouseEvent e) {
+//				// TODO Auto-generated method stub
+//				System.out.println("4mouseEntered la gi");
+//				
+//			}
+//			
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				// TODO Auto-generated method stub
+//				System.out.println("5mouseClicked la gi");
+//				
+//			}
+//		});
 		jLGroup.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
@@ -288,12 +290,13 @@ public class AdminMainMenu extends JFrame implements ActionListener {
 		bAdd = new JButton("Add");
 		bAdd.setFont(fontButton);
 		bAdd.addActionListener(this);
-		bUpdate = new JButton("Update");
-		bUpdate.setFont(fontButton);
+		bEdit = new JButton("Edit");
+		bEdit.setFont(fontButton);
+		bEdit.addActionListener(this);
 		//bSearch3 = new JButton("Search");
 		//bSearch3.setFont(fontButton);
 		pPAGE_END.add(bAdd);
-		pPAGE_END.add(bUpdate);
+		pPAGE_END.add(bEdit);
 		//pPAGE_END.add(bSearch3);
 		pPAGE_END.setBackground(Color.LIGHT_GRAY);
 		pPAGE_END.setSize(1000,100);
@@ -323,7 +326,7 @@ public class AdminMainMenu extends JFrame implements ActionListener {
 		
 		pLINE_START_END= new JPanel();
 		pLINE_START_END.add(bAdd);
-		pLINE_START_END.add(bUpdate);
+		pLINE_START_END.add(bEdit);
 		//pLINE_START_END.add(bSearch3);
 		pLINE_START_END.setBackground(Color.LIGHT_GRAY);
 		
@@ -397,7 +400,27 @@ public class AdminMainMenu extends JFrame implements ActionListener {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-	        } 
+	        }
+	        if(e.getSource()==bEdit){ 
+	        	if(groupJob==null)
+	        	{
+	        		JOptionPane.showMessageDialog(
+				            mainFrame, "please chose in name of GroupJob");
+	        	}
+	        	else
+	        	{
+	            try {
+	            	System.out.println("Update");
+	            	mainFrame.setVisible(false);
+					groupJobEdit = new GroupJobEdit(groupJob);
+					
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	        	}
+	        }
 	    } 
 
 }

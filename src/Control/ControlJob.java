@@ -6,7 +6,7 @@ import java.util.List;
 import dataConnect.DataGroupJob;
 import entity.GroupJob;
 
-public class ControlGroupJob {
+public class ControlJob {
 	
 	private DataGroupJob dGroup = new DataGroupJob();
 	public boolean add(GroupJob g) throws SQLException
@@ -28,10 +28,6 @@ public class ControlGroupJob {
 	public boolean checkName(GroupJob g) throws SQLException
 	{
 		return dGroup.checkName(g);
-	}
-	public boolean checkJobInGroupJob(GroupJob g)
-	{
-		return dGroup.checkJobInGroupJob(g);
 	}
 
 }
